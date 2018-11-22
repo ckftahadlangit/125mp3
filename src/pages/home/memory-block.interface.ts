@@ -5,6 +5,7 @@ import { JobCard } from "./job-card.interface";
     time: number;
     size: number;
     status: boolean;
-    joblist: Array<JobCard>
+    // stat: string
+    jobs: Array<JobCard>
     
 }
