@@ -1,90 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Multiprogramming and Time-Sharing System
-    </ion-title>
+    <ion-title>125MP3</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content>
-
-  <button ion-button block color="secondary"  (click) = "start()" large>
-    S  T  A  R  T
-  </button>
-    
-  <div>
-      <ion-item>
-          <ion-label><b>Total number of Resources:</b></ion-label>
-          <ion-label>{{ randomResourceLimit }}</ion-label>
-          <ion-label><b>Resources:</b></ion-label>
-          <ion-label>{{ sortedRes }}</ion-label>
-      </ion-item>
-  </div>
-  <div>
-      <ion-item>
-          <ion-label><b>
-             Total number of Users: 
-            </b>
-              </ion-label>
-          <ion-label>{{ randomUserLimit }}</ion-label>
-          <ion-label><b>Users: </b></ion-label>
-          <ion-label>{{ sortedUser }}</ion-label>
-      </ion-item>
-  </div>
   
-
-
-  <ion-grid>
-
-      <ion-row>
-        <ion-col col-xl-2 *ngFor = "let res of resourceCardArray">
-          <ion-card>
-            <ion-card-header> RESOURCE NAME: <b>
-              {{ res.resourceName }}
-            </b>
-            <ion-label>Total Time: <b> {{ res.resourceTime }} </b></ion-label>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-row>
-                    <ion-col>
-                      <b> <div>NAME</div> </b>
-                      </ion-col>
-                    <ion-col> 
-                      <b> <div>TIME</div> </b>
-                      </ion-col>
-                    <ion-col>
-                      <b> <div>STATUS</div> </b>
-                      </ion-col>
-                 </ion-row>
-            </ion-card-content>
-
-            <ion-row *ngFor = "let x of res.queueList">
-              
-                <ion-col>
-                  <b>
-                      <div>{{ x.name }}</div>
-                  </b>
-                </ion-col>
-
-                <ion-col> 
-                  <div>{{ x.time }}</div>
-
-                </ion-col>
-                
-                <ion-col>
-                  <div>{{ x.status }}</div>
-                </ion-col>
-
-             </ion-row>
-
-          </ion-card>
-        </ion-col>
-      </ion-row>
-  
-    </ion-grid>
-  
-
-
-
 </ion-content>
