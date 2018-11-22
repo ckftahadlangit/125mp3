@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-
-//created Resource interface
-// import { Resource} from './memory-block.interface';
-import { User } from './user.interface';
+import { NavController, Thumbnail } from 'ionic-angular';
 import { JobCard } from './job-card.interface';
+import { MemoryBlock } from './memory-block.interface';
 
 @Component({
   selector: 'page-home',
@@ -22,35 +19,63 @@ export class HomePage {
   jobObject = {} as JobCard
   jobArr: Array<JobCard>
   queueList: Array<JobCard>
-  
 
+  firstFit: Array<JobCard>
+  bestFit: Array<JobCard>
+  worstFit: Array<JobCard>
+
+  memBlockobject = {} as MemoryBlock
+  memBlockArr: Array<MemoryBlock>
+
+  
   constructor(public navCtrl: NavController) {    }
 
   // initialization/ reset
   start() {
     console.log("Generating");
+    this.generateJob(this.jobList, this.jobTime, this.jobSize)
+    this.generateMemBlock(this.jobList, this.jobTime, this.jobSize)
   }
 
-  generateJob(){
-    let arr: Array<JobCard> =  [];
-    arr = this.jobArr
-
-    let number: number = 0
-    let time: number = 0
-    let size: number = 0
+  // generate job object
+  generateJob(n, s, t){
+    this.jobArr =  [];
+    // arr = this.jobArr
 
     for(let i = 0; i != this.jobList.length; i++){
       this.jobObject = {} as JobCard
+      this.jobObject.status = false
       this.jobObject.name = this.jobList[i]
       this.jobObject.time = this.jobTime[i]
       this.jobObject.size = this.jobSize[i]
-      arr.push(this.jobObject)
-      
+      this.jobArr.push(this.jobObject)
     }
-
+    console.log("Array of job objects")
+    console.log(this.jobArr)
+    return this.jobArr
   }
 
+  generateMemBlock(n, s, t){
+    this.memBlockArr =  [];
+    // arr = this.jobArr
 
+    for(let i = 0; i != this.memoryBlock.length; i++){
+      this.memBlockobject = {} as MemoryBlock
+      this.memBlockobject.name = this.memoryBlock[i]
+      this.memBlockobject.size = this.memorySize[i]
+      this.memBlockobject.time = 0
+      this.memBlockobject.joblist = []
+      this.memBlockobject.status = false
+      this.memBlockArr.push(this.memBlockobject)
+    }
+    console.log(this.memBlockArr)
+    return this.memBlockArr
+  }
+
+  ffit(){
+    this.firstFit = []
+    
+  }
 
 
 
