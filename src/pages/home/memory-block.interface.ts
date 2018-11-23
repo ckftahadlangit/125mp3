@@ -7,5 +7,6 @@ import { JobCard } from "./job-card.interface";
     status: boolean;
     // stat: string
     jobs: Array<JobCard>
+    curr_job: JobCard
     
 }

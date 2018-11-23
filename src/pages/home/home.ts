@@ -22,14 +22,20 @@ export class HomePage {
   jobArr: Array<JobCard>
   queueList: Array<JobCard>
 
+  ffqueue = []
+  bfqueue = []
+  wfqueue = []
+
   firstFit = []
-  bestFit: Array<JobCard>
-  worstFit: Array<JobCard>
+  bestFit = []
+  worstFit = []
 
   memBlockobject = {} as MemoryBlock
   memBlockArr: Array<MemoryBlock>
 
-  
+  beginff: boolean
+  fftimer = null
+
   constructor(public navCtrl: NavController) {    }
 
   // initialization/ reset
@@ -37,9 +43,18 @@ export class HomePage {
     console.log("Generating");
     this.generateJob(this.jobList, this.jobTime, this.jobSize)
     this.generateMemBlock(this.jobList, this.jobTime, this.jobSize)
-    // this.intervalN = setInterval(()=>{this.kafourier(this.memBlockArr)}, 1500);
-    this.firs_fit()
+    // this.intervalN = setInterval(()=>{this.updateff()}, 1500);
+    // this.firs_fit()
   }
+
+  one() {
+      this.beginff = true
+      this.start()
+      this.firs_fit()
+      this.fftimer = setInterval(()=>{this.kafourier(this.firstFit)}, 1000);
+    //   this.fftimer = setInterval(this.kafourier, 1000);
+    }
+
 
   // generate job object
   generateJob(n, s, t){
@@ -212,7 +227,7 @@ firs_fit() {
   
   //     this.dupff.push(tpff)
   // }
-  this.printAllocs(this.firstFit)
+//   this.printAllocs(this.firstFit)
 }
 
 assignff(arr) {
@@ -220,6 +235,7 @@ assignff(arr) {
   var prevWaitTime = 0;
   var prevUseTime = 0;
   for (let i = 0; i < arr.length; i++) {
+      arr[i].total_time = 0;
       for (let j = 0; j < arr[i].jobs.length; j++) {
           let time = arr[i].jobs[j].time
           currWaitTime = prevUseTime + prevWaitTime;
@@ -234,7 +250,7 @@ assignff(arr) {
   }
 
   //print respective times
-  // this.printAllocs(arr);
+  this.printAllocs(arr);
 }
 
 printAllocs(arr) {
@@ -246,4 +262,77 @@ printAllocs(arr) {
   }
 }
 
+    deleteObj(a, p) {
+        let unique_array = a.filter(function(elem) {
+            return p.id != elem.id;
+        });
+        return unique_array;
+    }
+
+    // updateff() {
+    //     let arr = this.firstFit
+    //     console.log("here")
+    //     if (this.beginff == true) {
+    //         console.log("ni true")
+    //         for (let i = 0; i < arr.length; i++) {
+    //             for (let j = 0; j < arr[i].jobs.length; j++) {
+    //                 if (arr[i].jobs[j].wait == 0) {
+    //                     arr[i].curr_job = arr[i].jobs[j]
+    //                     arr[i].status = "JOB " + arr[i].curr_job.id;
+    //                     arr[i].jobs[j].time--;
+    //                     console.log(arr[i].jobs[j].time)
+
+    //                     this.ffqueue = this.deleteObj(this.ffqueue, arr[i].curr_job);
+
+    //                     if (arr[i].jobs[j].time == 0) {
+    //                         arr[i].jobs.shift();
+    //                         j--;
+    //                     }
+    //                 } else {
+    //                     arr[i].jobs[j].wait--;
+    //                 }
+    //             }
+
+    //             if (arr[i].jobs.length == 0) {
+    //                 arr[i].status = "FREE"
+    //                 // console.log("MEMORY BLOCK " + this.firstFit[i].block + " is FREE!!!!");
+    //             }
+    //         }
+    //     }
+    // }
+
+    kafourier(arr) {
+    
+        let totalTime = 0;
+        for (let i = 0; i < arr.length; i++) { //for all res card
+          let currCard = arr[i];
+          totalTime += currCard.resourceTime;
+        }
+    
+        let res = [];
+        let temp: Array<JobCard> = [];
+        if(totalTime <= 0){
+          clearInterval(this.fftimer);
+        }
+    
+        for (let i = 0; i < arr.length; i++) { //for all res card
+          let currCard = arr[i];
+          let list = currCard.queueList;
+          if(currCard.resourceTime > 0){
+            if(list.length > 0){
+              let topUser = list[0];
+              list[0].time--;
+              currCard.resourceTime--;
+    
+              if(list[0].time <= 0){
+                list[0].status = true;
+                list.pop();
+                //list.push(topUser);
+              }
+            }
+          }  
+        }
+        console.log(arr)
+        return this.display
+      }
 }

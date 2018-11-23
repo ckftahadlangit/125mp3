@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>125MP3: Placement Policies</ion-title>
-    <button ion-button block color="secondary"  (click) = "start()" large>
+    <button ion-button block color = "secondary"  (click) = "one()" large>
       S  T  A  R  T
     </button>
   </ion-navbar>
@@ -9,27 +9,13 @@
 
 <ion-content>
 
-    <div class = "row">
-        <div class = "col">col 1</div>
-        <div class = "col">col 2</div>
-        <div class = "col">col 3</div>
-        <div class = "col">col 4</div>
-        <div class = "col">col 5</div>
-     </div>
+  <ion-grid>
 
-     <div class = "row">
-        <div class = "col">col 6</div>
-        <div class = "col">col 7</div>
-        <div class = "col">col 8</div>
-        <div class = "col">col 9</div>
-        <div class = "col">col 10</div>
-     </div>
-
-  <!-- <ion-grid>
-
-    <ion-row>
+    <ion-row justify-content-center align-items-center>
       <ion-col col-xl-2 *ngFor = "let block of memBlockArr">
+        
         <ion-card>
+        
           <ion-card-header>
             Memory Block {{ block.name }}
           <ion-label>Size: {{ block.size }} </ion-label>
@@ -37,12 +23,11 @@
 
           <ion-card-content>
 
-            <ion-row *ngFor = "let burst of jobArr">
-              <ion-label>Burst Time: {{ burst.time }}</ion-label>
+            <ion-row *ngFor = "let x of firstFit">
+                <ion-col>
+                    <div>{{ x.time }}</div>
+                </ion-col>
             </ion-row>
-
-            Job!!!
-              
 
           </ion-card-content>
 
@@ -50,7 +35,7 @@
       </ion-col>
     </ion-row>
 
-  </ion-grid> -->
+  </ion-grid>
 
    
 </ion-content>
